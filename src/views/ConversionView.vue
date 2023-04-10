@@ -26,7 +26,10 @@
       <br />
       {{ rate }} {{ symbols[to] }}
     </div>
-    <FeedbackComponent v-if="isFetching" feedback="Fetching" />
+    <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
+    <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
+    <FeedbackComponent v-if="isFetchingConversion" feedback="Fetching Conversion" />
+    <FeedbackComponent v-if="isFetchingConversionFailed" feedback="Fetching Conversion Failed" />
   </div>
 </template>
 
@@ -38,15 +41,15 @@ import { FeedbackComponent } from '../components'
 
 const convertStore = useExchangeApiConvertStore()
 
-const { symbols } = storeToRefs(useExchangeApiSymbolsStore())
-const { rate, result } = storeToRefs(convertStore)
+const { symbols, isFetchingSymbols, isFetchingSymbolsFailed } = storeToRefs(
+  useExchangeApiSymbolsStore()
+)
+const { rate, result, isFetchingConversion, isFetchingConversionFailed } = storeToRefs(convertStore)
 
 const date = ref(new Date().toISOString().slice(0, 10))
 const from = ref('TRY')
 const to = ref('USD')
 const amount = ref(1)
-
-const isFetching = ref(false)
 
 watch([date, amount, from, to], () => {
   if (date.value && amount.value && from.value && to.value && from.value !== to.value) {

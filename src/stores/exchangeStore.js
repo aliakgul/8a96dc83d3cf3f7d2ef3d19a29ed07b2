@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia'
-import { dummyRequest, mapRates } from '../functions'
+import { mapRates, dummyRequest } from '../functions'
 
 const endpoint = 'https://api.apilayer.com/exchangerates_data'
+const requestHeader = new Headers()
+requestHeader.append('apikey', import.meta.env.VITE_API_LAYER_KEY)
+
 const requestOptions = {
   method: 'GET',
   redirect: 'follow',
-  headers: new Headers().append('apikey', import.meta.env.VITE_API_LAYER_KEY)
+  headers: requestHeader
 }
 
 export const useTransactionHistoryStore = defineStore({
@@ -24,7 +27,8 @@ export const useTransactionHistoryStore = defineStore({
 export const useExchangeApiSymbolsStore = defineStore({
   id: 'exchangeApiSymbols',
   state: () => ({
-    fetchingError: false,
+    isFetchingSymbols: false,
+    isFetchingSymbolsFailed: false,
     symbols: {}
   }),
   actions: {
@@ -32,14 +36,15 @@ export const useExchangeApiSymbolsStore = defineStore({
       /* const response = await fetch(`${endpoint}/symbols`, requestOptions)
       const { success, symbols } = await response.json() */
 
+      this.isFetchingSymbols = true
+      this.isFetchingSymbolsFailed = false
       const { success, symbols } = await dummyRequest('exchangeApiSymbols', {})
+      this.isFetchingSymbols = false
 
       if (success) {
-        this.fetchingError = false
         this.symbols = symbols
       } else {
-        // handle error
-        this.fetchingError = true
+        this.isFetchingSymbolsFailed = true
       }
     }
   },
@@ -52,7 +57,8 @@ export const useExchangeApiSymbolsStore = defineStore({
 export const useExchangeApiConvertStore = defineStore({
   id: 'exchangeApiConvert',
   state: () => ({
-    fetchingError: false,
+    isFetchingConversion: false,
+    isFetchingConversionFailed: false,
     timestamp: 0,
     from: '',
     to: '',
@@ -64,20 +70,22 @@ export const useExchangeApiConvertStore = defineStore({
   actions: {
     async fetchExchangeApiConvert(from, to, amount, exchangeDate) {
       /* const response = await fetch(
-        `${endpoint}/convert?from={${from}}&to={${to}}&amount={${amount}}&date=${exchangeDate}`,
+        `${endpoint}/convert?from=${from}&to=${to}&amount=${amount}&date=${exchangeDate}`,
         requestOptions
       )
       const { success, date, info, query, result } = await response.json() */
 
+      this.isFetchingConversion = true
+      this.isFetchingConversionFailed = false
       const { success, date, info, query, result } = await dummyRequest('exchangeApiConvert', {
         exchangeDate,
         amount,
         from,
         to
       })
+      this.isFetchingConversion = false
 
       if (success) {
-        this.fetchingError = false
         this.date = date
         this.rate = info.rate
         this.timestamp = info.timestamp
@@ -95,8 +103,7 @@ export const useExchangeApiConvertStore = defineStore({
           rate: info.rate
         })
       } else {
-        // handle error
-        this.fetchingError = true
+        this.isFetchingConversionFailed = true
       }
     }
   },
@@ -108,7 +115,8 @@ export const useExchangeApiConvertStore = defineStore({
 export const useExchangeApiTimeSeriesStore = defineStore({
   id: 'exchangeApiTimeSeries',
   state: () => ({
-    fetchingError: false,
+    isFetchingTimeseries: false,
+    isFetchingTimeseriesFailed: false,
     isTimeSeries: false,
     startDate: '',
     endDate: '',
@@ -118,11 +126,13 @@ export const useExchangeApiTimeSeriesStore = defineStore({
   actions: {
     async fetchExchangeApiTimeSeries(startDate, endDate, currencyBase, symbolsString) {
       /* const response = await fetch(
-        `${endpoint}/timeseries?start_date={${startDate}}&end_date={${endDate}}&base={${currencyBase}}&symbols={${symbolsString}}`,
+        `${endpoint}/timeseries?start_date=${startDate}&end_date=${endDate}&base=${currencyBase}&symbols=${symbolsString}`,
         requestOptions
       )
       const { success, timeseries, start_date, end_date, base, rates } = await response.json() */
 
+      this.isFetchingTimeseries = true
+      this.isFetchingTimeseriesFailed = false
       const { success, timeseries, start_date, end_date, base, rates } = await dummyRequest(
         'exchangeApiTimeSeries',
         {
@@ -131,9 +141,9 @@ export const useExchangeApiTimeSeriesStore = defineStore({
           endDate
         }
       )
+      this.isFetchingTimeseries = false
 
       if (success) {
-        this.fetchingError = false
         this.isTimeSeries = timeseries
         this.startDate = start_date
         this.endDate = end_date
@@ -144,8 +154,7 @@ export const useExchangeApiTimeSeriesStore = defineStore({
           useTransactionHistoryStore().saveTransaction(mappedRate)
         })
       } else {
-        // handle error
-        this.fetchingError = true
+        this.isFetchingTimeseriesFailed = true
       }
     }
   },

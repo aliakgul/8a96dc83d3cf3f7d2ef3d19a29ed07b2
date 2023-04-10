@@ -16,7 +16,11 @@
     <TimeseriesTable :rates="rates" :base="base" />
     <TimeseriesGraph :rates="rates" :base="base" />
 
-    <FeedbackComponent v-if="isFetching" feedback="Fetching" />
+    <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
+    <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
+
+    <FeedbackComponent v-if="isFetchingTimeseries" feedback="Fetching Timeseries" />
+    <FeedbackComponent v-if="isFetchingTimeseriesFailed" feedback="Fetching Timeseries Failed" />
   </div>
 </template>
 
@@ -28,19 +32,24 @@ import { FeedbackComponent, TimeseriesGraph, TimeseriesTable } from '../componen
 
 const timeSeriesStore = useExchangeApiTimeSeriesStore()
 
-const { symbols } = storeToRefs(useExchangeApiSymbolsStore())
-const { rates } = storeToRefs(timeSeriesStore)
+const { symbols, isFetchingSymbols, isFetchingSymbolsFailed } = storeToRefs(
+  useExchangeApiSymbolsStore()
+)
+const { rates, isFetchingTimeseries, isFetchingTimeseriesFailed } = storeToRefs(timeSeriesStore)
 
 const startDate = ref(new Date().toISOString().slice(0, 10))
 const endDate = ref(new Date().toISOString().slice(0, 10))
 const base = ref('TRY')
 const symbolsString = ref(['USD'])
 
-const isFetching = ref(false)
-
 const list = () => {
   if (startDate.value && endDate.value && base.value && symbols.value) {
-    timeSeriesStore.fetchExchangeApiTimeSeries(startDate.value, endDate.value, base, symbolsString)
+    timeSeriesStore.fetchExchangeApiTimeSeries(
+      startDate.value,
+      endDate.value,
+      base.value,
+      symbolsString.value
+    )
   }
 }
 </script>

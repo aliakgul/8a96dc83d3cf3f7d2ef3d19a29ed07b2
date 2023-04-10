@@ -36,4 +36,5 @@ npm run dev
 ```bash
 npm i lodash.debounce
 npm install @pinia/plugin-debounce
+npm i pinia-plugin-persistedstate
 ```

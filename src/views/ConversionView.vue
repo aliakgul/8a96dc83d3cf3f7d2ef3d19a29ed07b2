@@ -32,14 +32,13 @@
 </template>
 
 <script setup>
-import { onMounted, watch, ref } from 'vue'
+import { watch, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExchangeApiSymbolsStore, useExchangeApiConvertStore } from '@/stores/exchangeStore'
 
-const symbolsStore = useExchangeApiSymbolsStore()
 const convertStore = useExchangeApiConvertStore()
 
-const { symbols } = storeToRefs(symbolsStore)
+const { symbols } = storeToRefs(useExchangeApiSymbolsStore())
 const { rate, result } = storeToRefs(convertStore)
 
 const date = ref(new Date().toISOString().slice(0, 10))
@@ -48,10 +47,6 @@ const to = ref('USD')
 const amount = ref(1)
 
 const isFetching = ref(false)
-
-onMounted(() => {
-  symbolsStore.fetchExchangeApiSymbols()
-})
 
 watch([date, amount, from, to], () => {
   if (date.value && amount.value && from.value && to.value && from.value !== to.value) {

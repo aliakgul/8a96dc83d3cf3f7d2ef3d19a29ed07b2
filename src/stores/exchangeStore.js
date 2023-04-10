@@ -17,7 +17,8 @@ export const useTransactionHistoryStore = defineStore({
     saveTransaction(transaction) {
       this.transactions.push(transaction)
     }
-  }
+  },
+  persist: true
 })
 
 export const useExchangeApiSymbolsStore = defineStore({
@@ -44,7 +45,8 @@ export const useExchangeApiSymbolsStore = defineStore({
   },
   debounce: {
     fetchExchangeApiSymbols: 1000
-  }
+  },
+  persist: true
 })
 
 export const useExchangeApiConvertStore = defineStore({

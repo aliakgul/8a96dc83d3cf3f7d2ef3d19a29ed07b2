@@ -1,5 +1,11 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useExchangeApiSymbolsStore } from '@/stores/exchangeStore'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  useExchangeApiSymbolsStore().fetchExchangeApiSymbols()
+})
 </script>
 
 <template>

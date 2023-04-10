@@ -20,16 +20,15 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExchangeApiSymbolsStore, useExchangeApiTimeSeriesStore } from '@/stores/exchangeStore'
 import TimeseriesTable from '../components/TimeseriesTable.vue'
 import TimeseriesGraph from '../components/TimeseriesGraph.vue'
 
-const symbolsStore = useExchangeApiSymbolsStore()
 const timeSeriesStore = useExchangeApiTimeSeriesStore()
 
-const { symbols } = storeToRefs(symbolsStore)
+const { symbols } = storeToRefs(useExchangeApiSymbolsStore())
 const { rates } = storeToRefs(timeSeriesStore)
 
 const startDate = ref(new Date().toISOString().slice(0, 10))
@@ -44,8 +43,4 @@ const list = () => {
     timeSeriesStore.fetchExchangeApiTimeSeries(startDate.value, endDate.value, base, symbolsString)
   }
 }
-
-onMounted(() => {
-  symbolsStore.fetchExchangeApiSymbols()
-})
 </script>

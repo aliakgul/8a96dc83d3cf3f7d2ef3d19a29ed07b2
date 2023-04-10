@@ -2,6 +2,13 @@
 
 Designed and implemented three web pages by using [Currency Rates API](https://apilayer.com/marketplace/exchangerates_data-api).
 
+### Screenshots
+
+![conversion page](screenshots/ss1.png)
+![timeseries page 1](screenshots/ss2.png)
+![timeseries page 2](screenshots/ss3.png)
+![history page](screenshots/ss4.png)
+
 ### Tech Stack
 
 - HTML5

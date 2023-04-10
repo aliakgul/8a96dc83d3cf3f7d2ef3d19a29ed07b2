@@ -1,6 +1,7 @@
 <template>
   <div class="timeseries-graph">
     <LineChart v-if="Object.keys(rates).length" :options="chartOptions" :data="chartData" />
+    <div>If the chart is not visible, please visit another page than come back. (implementation bug)</div>
   </div>
 </template>
 

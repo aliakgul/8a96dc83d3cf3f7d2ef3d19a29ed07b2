@@ -4,12 +4,11 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class="app">
-    <header>
-      <nav>
-        <RouterLink to="/">Home Page</RouterLink> | <RouterLink to="/about">About Page</RouterLink>
-      </nav>
-    </header>
-
+    <nav>
+      <RouterLink to="/">Conversion Page</RouterLink> |
+      <RouterLink to="/timeseries">Timeseries Page</RouterLink> |
+      <RouterLink to="/history">History Page</RouterLink>
+    </nav>
     <RouterView />
   </div>
 </template>
@@ -17,6 +16,6 @@ import { RouterLink, RouterView } from 'vue-router'
 <style>
 .app {
   text-align: center;
-  font-size: 30px;
+  font-size: 1.3rem;
 }
 </style>

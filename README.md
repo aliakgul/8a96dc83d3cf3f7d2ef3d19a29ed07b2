@@ -11,6 +11,12 @@ Designed and implemented three web pages by using [Currency Rates API](https://a
 
 ### Run
 
+You need to provide an API key from [API Layer Website](https://apilayer.com) and create an .env file in the root folder like below.
+
+```env
+VITE_API_LAYER_KEY=YOUR_KEY
+```
+
 ```bash
 npm run dev
 ```
@@ -29,4 +35,5 @@ npm run dev
 
 ```bash
 npm i lodash.debounce
+npm install @pinia/plugin-debounce
 ```

@@ -33,15 +33,12 @@ export const useExchangeApiSymbolsStore = defineStore({
   }),
   actions: {
     async fetchExchangeApiSymbols() {
-      /* const response = await fetch(`${endpoint}/symbols`, requestOptions) */
+      const response = await fetch(`${endpoint}/symbols`, requestOptions)
 
       this.isFetchingSymbols = true
       this.isFetchingSymbolsFailed = false
 
-      const { success, symbols } = await /* response.json() */ dummyRequest(
-        'exchangeApiSymbols',
-        {}
-      )
+      const { success, symbols } = await response.json()
 
       this.isFetchingSymbols = false
 
@@ -73,23 +70,15 @@ export const useExchangeApiConvertStore = defineStore({
   }),
   actions: {
     async fetchExchangeApiConvert(from, to, amount, exchangeDate) {
-      /* const response = await fetch(
+      const response = await fetch(
         `${endpoint}/convert?from=${from}&to=${to}&amount=${amount}&date=${exchangeDate}`,
         requestOptions
-      ) */
+      )
 
       this.isFetchingConversion = true
       this.isFetchingConversionFailed = false
 
-      const { success, date, info, query, result } = await /* response.json() */ dummyRequest(
-        'exchangeApiConvert',
-        {
-          exchangeDate,
-          amount,
-          from,
-          to
-        }
-      )
+      const { success, date, info, query, result } = await response.json()
 
       this.isFetchingConversion = false
 
@@ -133,20 +122,15 @@ export const useExchangeApiTimeSeriesStore = defineStore({
   }),
   actions: {
     async fetchExchangeApiTimeSeries(startDate, endDate, currencyBase, symbolsString) {
-      /* const response = await fetch(
+      const response = await fetch(
         `${endpoint}/timeseries?start_date=${startDate}&end_date=${endDate}&base=${currencyBase}&symbols=${symbolsString}`,
         requestOptions
-      ) */
+      )
 
       this.isFetchingTimeseries = true
       this.isFetchingTimeseriesFailed = false
 
-      const { success, timeseries, start_date, end_date, base, rates } =
-        await /* response.json() */ dummyRequest('exchangeApiTimeSeries', {
-          currencyBase,
-          startDate,
-          endDate
-        })
+      const { success, timeseries, start_date, end_date, base, rates } = await response.json()
 
       this.isFetchingTimeseries = false
 
@@ -157,7 +141,7 @@ export const useExchangeApiTimeSeriesStore = defineStore({
         this.base = base
         this.rates = rates
 
-        mapRates(rates, { from: base }).forEach((mappedRate) => {
+        mapRates(rates, { from: base, timestamp: Date.now() }).forEach((mappedRate) => {
           useTransactionHistoryStore().saveTransaction(mappedRate)
         })
       } else {

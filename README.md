@@ -34,7 +34,8 @@ npm run dev
 - ✔ Add Prettier for code formatting? … Yes
 
 ```bash
+npm i @pinia/plugin-debounce # https://github.com/posva/pinia-plugin-debounce
 npm i lodash.debounce
-npm install @pinia/plugin-debounce
-npm i pinia-plugin-persistedstate
+npm i pinia-plugin-persistedstate # https://github.com/prazdevs/pinia-plugin-persistedstate
+npm i vue-chartjs chart.js # https://github.com/apertureless/vue-chartjs
 ```

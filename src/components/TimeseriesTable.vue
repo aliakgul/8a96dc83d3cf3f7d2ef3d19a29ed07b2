@@ -1,6 +1,6 @@
 <template>
   <div class="timeseries-table">
-    <table>
+    <table v-if="Object.keys(rates).length">
       <tr>
         <th>Date</th>
         <th>From Currency</th>

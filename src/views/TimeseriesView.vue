@@ -15,7 +15,8 @@
     <button @click="list">List</button>
     <TimeseriesTable :rates="rates" :base="base" />
     <TimeseriesGraph :rates="rates" :base="base" />
-    {{ isFetching ? 'loading...' : '' }}
+
+    <FeedbackComponent v-if="isFetching" feedback="Fetching" />
   </div>
 </template>
 
@@ -23,8 +24,7 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExchangeApiSymbolsStore, useExchangeApiTimeSeriesStore } from '@/stores/exchangeStore'
-import TimeseriesTable from '../components/TimeseriesTable.vue'
-import TimeseriesGraph from '../components/TimeseriesGraph.vue'
+import { FeedbackComponent, TimeseriesGraph, TimeseriesTable } from '../components'
 
 const timeSeriesStore = useExchangeApiTimeSeriesStore()
 

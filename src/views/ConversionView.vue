@@ -25,9 +25,8 @@
       1 {{ symbols[from] }} equals
       <br />
       {{ rate }} {{ symbols[to] }}
-      <br />
-      {{ isFetching ? 'loading...' : '' }}
     </div>
+    <FeedbackComponent v-if="isFetching" feedback="Fetching" />
   </div>
 </template>
 
@@ -35,6 +34,7 @@
 import { watch, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExchangeApiSymbolsStore, useExchangeApiConvertStore } from '@/stores/exchangeStore'
+import { FeedbackComponent } from '../components'
 
 const convertStore = useExchangeApiConvertStore()
 

@@ -22,6 +22,10 @@ onMounted(() => {
 <style>
 .app {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

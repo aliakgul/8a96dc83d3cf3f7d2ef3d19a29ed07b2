@@ -1,5 +1,7 @@
 <template>
-  <div class="timeseries-graph">Timeseries Graph</div>
+  <div class="timeseries-graph">
+    <div v-if="Object.keys(rates).length">Timeseries Graph</div>
+  </div>
 </template>
 
 <script>

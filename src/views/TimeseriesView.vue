@@ -1,26 +1,37 @@
 <template>
   <div class="timeseries-view">
-    <input type="date" v-model="startDate" />
-    <input type="date" v-model="endDate" />
-    <select v-model="base">
-      <option v-for="(fromSymbol, index) in Object.keys(symbols)" :key="index" :value="fromSymbol">
-        {{ fromSymbol }}
-      </option>
-    </select>
-    <select multiple v-model="symbolsString">
-      <option v-for="(fromSymbol, index) in Object.keys(symbols)" :key="index" :value="fromSymbol">
-        {{ fromSymbol }}
-      </option>
-    </select>
-    <button @click="list">List</button>
-    <TimeseriesTable :rates="rates" :base="base" />
-    <TimeseriesGraph :rates="rates" :base="base" />
-
-    <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
-    <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
-
-    <FeedbackComponent v-if="isFetchingTimeseries" feedback="Fetching Timeseries" />
-    <FeedbackComponent v-if="isFetchingTimeseriesFailed" feedback="Fetching Timeseries Failed" />
+    <div class="form">
+      <input type="date" v-model="startDate" />
+      <input type="date" v-model="endDate" />
+      <select v-model="base">
+        <option
+          v-for="(fromSymbol, index) in Object.keys(symbols)"
+          :key="index"
+          :value="fromSymbol"
+        >
+          {{ fromSymbol }}
+        </option>
+      </select>
+      <select multiple v-model="symbolsString">
+        <option
+          v-for="(fromSymbol, index) in Object.keys(symbols)"
+          :key="index"
+          :value="fromSymbol"
+        >
+          {{ fromSymbol }}
+        </option>
+      </select>
+      <button @click="list">List</button>
+    </div>
+    <div class="feedback">
+      <small>Please use ctrl/cmd for multiple selection</small>
+      <TimeseriesTable :rates="rates" :base="base" />
+      <TimeseriesGraph :rates="rates" :base="base" />
+      <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
+      <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
+      <FeedbackComponent v-if="isFetchingTimeseries" feedback="Fetching Timeseries" />
+      <FeedbackComponent v-if="isFetchingTimeseriesFailed" feedback="Fetching Timeseries Failed" />
+    </div>
   </div>
 </template>
 
@@ -48,7 +59,7 @@ const list = () => {
       startDate.value,
       endDate.value,
       base.value,
-      symbolsString.value
+      symbolsString.value.join(',')
     )
   }
 }

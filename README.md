@@ -1,4 +1,4 @@
-#### Currency Conversion
+## Exchange API App
 
 Designed and implemented three web pages by using [Currency Rates API](https://apilayer.com/marketplace/exchangerates_data-api).
 
@@ -15,6 +15,7 @@ Designed and implemented three web pages by using [Currency Rates API](https://a
 - CSS
 - Vue3
 - Pinia
+- Bootstrap5
 
 ### Run
 
@@ -25,6 +26,7 @@ VITE_API_LAYER_KEY=YOUR_KEY
 ```
 
 ```bash
+npm install
 npm run dev
 ```
 
@@ -42,7 +44,8 @@ npm run dev
 
 ```bash
 npm i @pinia/plugin-debounce # https://github.com/posva/pinia-plugin-debounce
-npm i lodash.debounce
+npm i lodash.debounce # https://lodash.com
 npm i pinia-plugin-persistedstate # https://github.com/prazdevs/pinia-plugin-persistedstate
 npm i vue-chartjs chart.js # https://github.com/apertureless/vue-chartjs
+npm i bootstrap bootstrap-icons # https://getbootstrap.com
 ```

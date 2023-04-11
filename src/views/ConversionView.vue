@@ -29,15 +29,21 @@
         <input class="form-control" type="number" v-model="result" disabled />
       </div>
     </div>
+    <SpinnerComponent message="Fetching Symbols" v-if="isFetchingSymbols" />
+    <SpinnerComponent message="Fetching Conversion" v-if="isFetchingConversion" />
     <h3 v-if="rate">
       1 {{ symbols[from] }} equals
       <br />
       {{ rate }} {{ symbols[to] }}
     </h3>
-    <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
-    <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
-    <FeedbackComponent v-if="isFetchingConversion" feedback="Fetching Conversion" />
-    <FeedbackComponent v-if="isFetchingConversionFailed" feedback="Fetching Conversion Failed" />
+    <FeedbackComponent
+      :shouldShow="isFetchingSymbolsFailed"
+      message="Fetching Symbols Failed"
+    />
+    <FeedbackComponent
+      :shouldShow="isFetchingConversionFailed"
+      message="Fetching Conversion Failed"
+    />
   </div>
 </template>
 
@@ -45,7 +51,7 @@
 import { watch, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExchangeApiSymbolsStore, useExchangeApiConvertStore } from '@/stores/exchangeStore'
-import { FeedbackComponent } from '../components'
+import { FeedbackComponent, SpinnerComponent } from '../components'
 
 const convertStore = useExchangeApiConvertStore()
 

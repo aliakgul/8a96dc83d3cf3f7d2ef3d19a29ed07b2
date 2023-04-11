@@ -35,12 +35,15 @@
       </button>
     </div>
     <div class="feedback">
+      <SpinnerComponent message="Fetching Symbols" v-if="isFetchingSymbols" />
+      <SpinnerComponent message="Fetching Conversion" v-if="isFetchingTimeseries" />
       <TimeseriesGraph :rates="rates" />
       <TimeseriesTable :rates="rates" :base="base" />
-      <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
-      <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
-      <FeedbackComponent v-if="isFetchingTimeseries" feedback="Fetching Timeseries" />
-      <FeedbackComponent v-if="isFetchingTimeseriesFailed" feedback="Fetching Timeseries Failed" />
+      <FeedbackComponent :shouldShow="isFetchingSymbolsFailed" message="Fetching Symbols Failed" />
+      <FeedbackComponent
+        :shouldShow="isFetchingTimeseriesFailed"
+        message="Fetching Timeseries Failed"
+      />
     </div>
   </div>
 </template>
@@ -49,7 +52,12 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExchangeApiSymbolsStore, useExchangeApiTimeSeriesStore } from '@/stores/exchangeStore'
-import { FeedbackComponent, TimeseriesGraph, TimeseriesTable } from '../components'
+import {
+  FeedbackComponent,
+  TimeseriesGraph,
+  TimeseriesTable,
+  SpinnerComponent
+} from '../components'
 import { checkIfInDateLimits } from '../functions'
 
 const timeSeriesStore = useExchangeApiTimeSeriesStore()

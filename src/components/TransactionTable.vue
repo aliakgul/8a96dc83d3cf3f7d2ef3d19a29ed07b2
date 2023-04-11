@@ -1,22 +1,31 @@
 <template>
   <div class="transaction-table">
-    <table>
-      <tr>
-        <th>Timestamp</th>
-        <th>Date</th>
-        <th>From Currency</th>
-        <th>To Currency</th>
-        <th>Rate</th>
-        <th>Amount</th>
-      </tr>
-      <tr v-for="transaction in transactions.slice().reverse()" :key="transaction.timestamp">
-        <th>{{ transaction.timestamp }}</th>
-        <th>{{ transaction.date }}</th>
-        <th>{{ transaction.from }}</th>
-        <th>{{ transaction.to }}</th>
-        <th>{{ transaction.rate }}</th>
-        <th>{{ transaction.amount }}</th>
-      </tr>
+    <table class="table table-primary table-hover table-sm caption-bottom">
+      <caption>
+        {{transactions.length ? 'Transaction History' : 'No Transactions Yet.'}}
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Timestamp</th>
+          <th scope="col">Date</th>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
+          <th scope="col">Rate</th>
+          <th scope="col">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
+          <th>{{ index }}</th>
+          <td>{{ transaction.timestamp }}</td>
+          <td>{{ transaction.date }}</td>
+          <td>{{ transaction.from }}</td>
+          <td>{{ transaction.to }}</td>
+          <td>{{ transaction.rate }}</td>
+          <td>{{ transaction.amount }}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>

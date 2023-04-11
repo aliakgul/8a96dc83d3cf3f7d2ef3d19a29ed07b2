@@ -1,8 +1,10 @@
 <template>
   <div class="transaction-table">
-    <table class="table table-primary table-hover table-sm caption-bottom">
+    <table class="table table-secondary table-hover caption-bottom">
       <caption>
-        {{transactions.length ? 'Transaction History' : 'No Transactions Yet.'}}
+        {{
+          transactions.length ? 'Transaction History' : 'No Transactions Yet.'
+        }}
       </caption>
       <thead>
         <tr>
@@ -17,7 +19,7 @@
       </thead>
       <tbody>
         <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
-          <th>{{ index }}</th>
+          <th scope="col">{{ index }}</th>
           <td>{{ transaction.timestamp }}</td>
           <td>{{ transaction.date }}</td>
           <td>{{ transaction.from }}</td>

@@ -1,9 +1,13 @@
 <template>
   <div class="timeseries-view">
-    <div class="form">
-      <input type="date" v-model="startDate" />
-      <input type="date" v-model="endDate" />
-      <select v-model="base">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Start Date</span>
+      <input class="form-control" type="date" v-model="startDate" />
+      <span class="input-group-text">End Date</span>
+      <input class="form-control" type="date" v-model="endDate" />
+    </div>
+    <div class="input-group mb-3">
+      <select class="form-select" v-model="base">
         <option
           v-for="(fromSymbol, index) in Object.keys(symbols)"
           :key="index"
@@ -12,7 +16,7 @@
           {{ fromSymbol }}
         </option>
       </select>
-      <select multiple v-model="symbolsString">
+      <select class="form-select" size="4" multiple v-model="symbolsString">
         <option
           v-for="(fromSymbol, index) in Object.keys(symbols)"
           :key="index"
@@ -21,12 +25,18 @@
           {{ fromSymbol }}
         </option>
       </select>
-      <button @click="list" :disabled="isFetchingSymbols || isFetchingTimeseries">List</button>
+      <span class="input-group-text">Use cmd for multiple selection.</span>
+      <button
+        class="btn btn-secondary"
+        @click="list"
+        :disabled="isFetchingSymbols || isFetchingTimeseries"
+      >
+        List
+      </button>
     </div>
     <div class="feedback">
-      <small>Please use ctrl/cmd for multiple selection</small>
-      <TimeseriesTable :rates="rates" :base="base" />
       <TimeseriesGraph :rates="rates" />
+      <TimeseriesTable :rates="rates" :base="base" />
       <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
       <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
       <FeedbackComponent v-if="isFetchingTimeseries" feedback="Fetching Timeseries" />

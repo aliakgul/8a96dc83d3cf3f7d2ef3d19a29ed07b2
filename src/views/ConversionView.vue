@@ -1,31 +1,39 @@
 <template>
   <div class="conversion-view">
-    <input type="date" v-model="date" />
-    <div>
-      <select v-model="from">
-        <option
-          v-for="(fromSymbol, index) in Object.keys(symbols)"
-          :key="index"
-          :value="fromSymbol"
-        >
-          {{ fromSymbol }}
-        </option>
-      </select>
-      <input type="number" min="1" step="1" v-model="amount" />
+    <div class="input-group mb-3">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Date</span>
+        <input class="form-control" type="date" v-model="date" />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">From</span>
+        <select class="form-select" v-model="from">
+          <option
+            v-for="(fromSymbol, index) in Object.keys(symbols)"
+            :key="index"
+            :value="fromSymbol"
+          >
+            {{ fromSymbol }}
+          </option>
+        </select>
+        <input class="form-control" type="number" min="1" step="1" v-model="amount" />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">To</span>
+        <select class="form-select" v-model="to">
+          <option v-for="(toSymbol, index) in Object.keys(symbols)" :key="index" :value="toSymbol">
+            {{ toSymbol }}
+          </option>
+        </select>
+        <input class="form-control" type="number" v-model="result" disabled />
+      </div>
     </div>
-    <div>
-      <select v-model="to">
-        <option v-for="(toSymbol, index) in Object.keys(symbols)" :key="index" :value="toSymbol">
-          {{ toSymbol }}
-        </option>
-      </select>
-      <input type="number" v-model="result" disabled />
-    </div>
-    <div>
+    <h3 v-if="rate">
       1 {{ symbols[from] }} equals
       <br />
       {{ rate }} {{ symbols[to] }}
-    </div>
+    </h3>
     <FeedbackComponent v-if="isFetchingSymbols" feedback="Fetching Symbols" />
     <FeedbackComponent v-if="isFetchingSymbolsFailed" feedback="Fetching Symbols Failed" />
     <FeedbackComponent v-if="isFetchingConversion" feedback="Fetching Conversion" />

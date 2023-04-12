@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { mapRates, dummyRequest } from '../functions'
+import { mapRates } from '../functions'
 
 const endpoint = 'https://api.apilayer.com/exchangerates_data'
 const requestHeader = new Headers()
@@ -33,20 +33,23 @@ export const useExchangeApiSymbolsStore = defineStore({
   }),
   actions: {
     async fetchExchangeApiSymbols() {
-      const response = await fetch(`${endpoint}/symbols`, requestOptions)
-
       this.isFetchingSymbols = true
       this.isFetchingSymbolsFailed = false
 
-      const { success, symbols } = await response.json()
+      try {
+        const response = await fetch(`${endpoint}/symbols`, requestOptions)
+        const { success, symbols } = await response.json()
 
-      this.isFetchingSymbols = false
-
-      if (success) {
-        this.symbols = symbols
-      } else {
+        if (success) {
+          this.symbols = symbols
+        } else {
+          this.isFetchingSymbolsFailed = true
+        }
+      } catch (error) {
         this.isFetchingSymbolsFailed = true
       }
+
+      this.isFetchingSymbols = false
     }
   },
   debounce: {
@@ -70,38 +73,41 @@ export const useExchangeApiConvertStore = defineStore({
   }),
   actions: {
     async fetchExchangeApiConvert(from, to, amount, exchangeDate) {
-      const response = await fetch(
-        `${endpoint}/convert?from=${from}&to=${to}&amount=${amount}&date=${exchangeDate}`,
-        requestOptions
-      )
-
       this.isFetchingConversion = true
       this.isFetchingConversionFailed = false
 
-      const { success, date, info, query, result } = await response.json()
+      try {
+        const response = await fetch(
+          `${endpoint}/convert?from=${from}&to=${to}&amount=${amount}&date=${exchangeDate}`,
+          requestOptions
+        )
+        const { success, date, info, query, result } = await response.json()
 
-      this.isFetchingConversion = false
+        if (success) {
+          this.date = date
+          this.rate = info.rate
+          this.timestamp = info.timestamp
+          this.amount = query.amount
+          this.from = query.from
+          this.to = query.to
+          this.result = result
 
-      if (success) {
-        this.date = date
-        this.rate = info.rate
-        this.timestamp = info.timestamp
-        this.amount = query.amount
-        this.from = query.from
-        this.to = query.to
-        this.result = result
-
-        useTransactionHistoryStore().saveTransaction({
-          from,
-          to,
-          date,
-          amount,
-          timestamp: info.timestamp,
-          rate: info.rate
-        })
-      } else {
+          useTransactionHistoryStore().saveTransaction({
+            from,
+            to,
+            date,
+            amount,
+            timestamp: info.timestamp,
+            rate: info.rate
+          })
+        } else {
+          this.isFetchingConversionFailed = true
+        }
+      } catch (error) {
         this.isFetchingConversionFailed = true
       }
+
+      this.isFetchingConversion = false
     }
   },
   debounce: {
@@ -122,31 +128,34 @@ export const useExchangeApiTimeSeriesStore = defineStore({
   }),
   actions: {
     async fetchExchangeApiTimeSeries(startDate, endDate, currencyBase, symbolsString) {
-      const response = await fetch(
-        `${endpoint}/timeseries?start_date=${startDate}&end_date=${endDate}&base=${currencyBase}&symbols=${symbolsString}`,
-        requestOptions
-      )
-
       this.isFetchingTimeseries = true
       this.isFetchingTimeseriesFailed = false
 
-      const { success, timeseries, start_date, end_date, base, rates } = await response.json()
+      try {
+        const response = await fetch(
+          `${endpoint}/timeseries?start_date=${startDate}&end_date=${endDate}&base=${currencyBase}&symbols=${symbolsString}`,
+          requestOptions
+        )
+        const { success, timeseries, start_date, end_date, base, rates } = await response.json()
 
-      this.isFetchingTimeseries = false
+        if (success) {
+          this.isTimeSeries = timeseries
+          this.startDate = start_date
+          this.endDate = end_date
+          this.base = base
+          this.rates = rates
 
-      if (success) {
-        this.isTimeSeries = timeseries
-        this.startDate = start_date
-        this.endDate = end_date
-        this.base = base
-        this.rates = rates
-
-        mapRates(rates, { from: base, timestamp: Date.now() }).forEach((mappedRate) => {
-          useTransactionHistoryStore().saveTransaction(mappedRate)
-        })
-      } else {
+          mapRates(rates, { from: base, timestamp: Date.now() }).forEach((mappedRate) => {
+            useTransactionHistoryStore().saveTransaction(mappedRate)
+          })
+        } else {
+          this.isFetchingTimeseriesFailed = true
+        }
+      } catch (error) {
         this.isFetchingTimeseriesFailed = true
       }
+
+      this.isFetchingTimeseries = false
     }
   },
   debounce: {

@@ -4,10 +4,10 @@ Designed and implemented three web pages by using [Currency Rates API](https://a
 
 ### Screenshots
 
-![conversion page](screenshots/ss1.png)
-![timeseries page 1](screenshots/ss2.png)
-![timeseries page 2](screenshots/ss3.png)
-![history page](screenshots/ss4.png)
+![conversion page 1](screenshots/ss5.png)
+![conversion page 2](screenshots/ss6.png)
+![timeseries page 1](screenshots/ss7.png)
+![history page 1](screenshots/ss8.png)
 
 ### Tech Stack
 

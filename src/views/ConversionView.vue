@@ -18,7 +18,6 @@
         </select>
         <input class="form-control" type="number" min="1" step="1" v-model="amount" />
       </div>
-
       <div class="input-group mb-3">
         <span class="input-group-text">To</span>
         <select class="form-select" v-model="to">
@@ -28,6 +27,9 @@
         </select>
         <input class="form-control" type="number" v-model="result" disabled />
       </div>
+      <div class="input-group mb-3">
+        <button class="btn btn-secondary" @click="swapCurrencies">Swap Currencies</button>
+      </div>
     </div>
     <SpinnerComponent message="Fetching Symbols" v-if="isFetchingSymbols" />
     <SpinnerComponent message="Fetching Conversion" v-if="isFetchingConversion" />
@@ -36,10 +38,7 @@
       <br />
       {{ rate }} {{ symbols[to] }}
     </h3>
-    <FeedbackComponent
-      :shouldShow="isFetchingSymbolsFailed"
-      message="Fetching Symbols Failed"
-    />
+    <FeedbackComponent :shouldShow="isFetchingSymbolsFailed" message="Fetching Symbols Failed" />
     <FeedbackComponent
       :shouldShow="isFetchingConversionFailed"
       message="Fetching Conversion Failed"
@@ -65,8 +64,14 @@ const from = ref('TRY')
 const to = ref('USD')
 const amount = ref(1)
 
+const swapCurrencies = () => {
+  const fromInitial = from.value
+  from.value = to.value
+  to.value = fromInitial
+}
+
 watch([date, amount, from, to], () => {
-  if (date.value && amount.value && from.value && to.value && from.value !== to.value) {
+  if (date.value && amount.value && from.value && to.value) {
     convertStore.fetchExchangeApiConvert(from.value, to.value, amount.value, date.value)
   }
 })

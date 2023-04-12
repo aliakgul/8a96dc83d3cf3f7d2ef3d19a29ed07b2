@@ -1,4 +1,4 @@
-const mapRates = (rates, specs) => {
+const formatRatesForTable = (rates, specs) => {
   const mappedRates = []
 
   Object.keys(rates).forEach((dateKey) => {
@@ -17,4 +17,4 @@ const mapRates = (rates, specs) => {
   return mappedRates
 }
 
-export default mapRates
+export default formatRatesForTable

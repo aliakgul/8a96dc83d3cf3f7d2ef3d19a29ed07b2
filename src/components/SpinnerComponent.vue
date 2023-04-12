@@ -9,9 +9,13 @@
 
 <script>
 export default {
-  name: 'SpinnerComponent',
   props: {
-    message: String
+    message: {
+      type: String,
+      default() {
+        return 'Loading...'
+      }
+    }
   }
 }
 </script>

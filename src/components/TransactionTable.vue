@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
+        <tr v-for="(transaction, index) in state.reversedTransactions" :key="index">
           <th scope="col">{{ index }}</th>
           <td>{{ transaction.timestamp }}</td>
           <td>{{ transaction.date }}</td>
@@ -33,10 +33,23 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
+
 export default {
-  name: 'TransactionTable',
   props: {
-    transactions: Array
+    transactions: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
+  setup(props) {
+    const state = reactive({
+      reversedTransactions: props.transactions.slice().reverse()
+    })
+
+    return { state }
   }
 }
 </script>

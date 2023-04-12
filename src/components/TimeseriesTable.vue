@@ -26,9 +26,13 @@
 
 <script>
 export default {
-  name: 'TimeseriesTable',
   props: {
-    tableData: Array
+    tableData: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   }
 }
 </script>

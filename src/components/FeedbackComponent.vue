@@ -2,7 +2,7 @@
   <div class="feedback-component">
     <div class="toast-container position-absolute bottom-0 start-50 translate-middle-x">
       <div
-        ref="toast"
+        ref="toastElement"
         class="toast align-items-center text-bg-danger border-0"
         role="alert"
         aria-live="assertive"
@@ -25,18 +25,29 @@
 </template>
 
 <script>
+import { onUpdated, ref } from 'vue'
 import { Toast } from 'bootstrap'
 
 export default {
-  name: 'FeedbackComponent',
   props: {
-    message: String,
-    shouldShow: Boolean
-  },
-  updated() {
-    if (this.shouldShow) {
-      new Toast(this.$refs.toast).show()
+    shouldShow: Boolean,
+    message: {
+      type: String,
+      default() {
+        return 'Something went wrong'
+      }
     }
+  },
+  setup(props) {
+    const toastElement = ref(null)
+
+    onUpdated(() => {
+      if (props.shouldShow) {
+        new Toast(toastElement.value).show()
+      }
+    })
+
+    return { toastElement }
   }
 }
 </script>

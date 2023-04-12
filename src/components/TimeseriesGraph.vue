@@ -20,11 +20,20 @@ import {
 ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale)
 
 export default {
-  name: 'TimeseriesGraph',
   components: { LineChart },
   props: {
-    chartData: Object,
-    chartOptions: Object
+    chartData: {
+      type: Object,
+      default() {
+        return { labels: [], datasets: [] }
+      }
+    },
+    chartOptions: {
+      type: Object,
+      default() {
+        return { responsive: true }
+      }
+    }
   }
 }
 </script>

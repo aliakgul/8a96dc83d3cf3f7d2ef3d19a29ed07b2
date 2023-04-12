@@ -1,12 +1,24 @@
 <template>
   <div class="history-view">
-    <TransactionTable :transactions="transactions" />
+    <TransactionTable :transactions="transactionStoreState.transactions" />
   </div>
 </template>
 
-<script setup>
+<script>
+import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useTransactionHistoryStore } from '@/stores/exchangeStore'
 import { TransactionTable } from '../components'
 
-const { transactions } = useTransactionHistoryStore()
+export default {
+  components: { TransactionTable },
+  setup() {
+    const transactionStore = useTransactionHistoryStore()
+    const transactionStoreState = ref(storeToRefs(transactionStore))
+
+    return {
+      transactionStoreState
+    }
+  }
+}
 </script>

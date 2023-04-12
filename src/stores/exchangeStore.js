@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { mapRates } from '../functions'
+import { dummyRequest, formatRatesForGraph, formatRatesForTable } from '../functions'
 
 const endpoint = 'https://api.apilayer.com/exchangerates_data'
 const requestHeader = new Headers()
@@ -145,7 +145,10 @@ export const useExchangeApiTimeSeriesStore = defineStore({
           this.base = base
           this.rates = rates
 
-          mapRates(rates, { from: base, timestamp: Date.now() }).forEach((mappedRate) => {
+          formatRatesForTable(rates, {
+            from: base,
+            timestamp: Math.floor(Date.now() / 1000)
+          }).forEach((mappedRate) => {
             useTransactionHistoryStore().saveTransaction(mappedRate)
           })
         } else {
@@ -156,6 +159,14 @@ export const useExchangeApiTimeSeriesStore = defineStore({
       }
 
       this.isFetchingTimeseries = false
+    }
+  },
+  getters: {
+    getRatesForGraph: (state) => {
+      return formatRatesForGraph(state.rates)
+    },
+    getRatesForTable: (state) => {
+      return formatRatesForTable(state.rates, { from: state.base })
     }
   },
   debounce: {

@@ -1,7 +1,7 @@
-import SpinnerComponent from './SpinnerComponent.vue'
 import FeedbackComponent from './FeedbackComponent.vue'
-import TimeseriesGraph from './TimeseriesGraph.vue'
-import TimeseriesTable from './TimeseriesTable.vue'
+import SpinnerComponent from './SpinnerComponent.vue'
 import TransactionTable from './TransactionTable.vue'
+import TimeseriesTable from './TimeseriesTable.vue'
+import TimeseriesGraph from './TimeseriesGraph.vue'
 
-export { SpinnerComponent, FeedbackComponent, TimeseriesGraph, TimeseriesTable, TransactionTable }
+export { FeedbackComponent, SpinnerComponent, TransactionTable, TimeseriesTable, TimeseriesGraph }

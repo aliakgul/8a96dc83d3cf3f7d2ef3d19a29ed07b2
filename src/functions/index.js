@@ -1,6 +1,6 @@
 import checkIfInDateLimits from './checkIfInDateLimits'
-import dummyRequest from './dummyRequest'
-import mapRates from './mapRates'
+import formatRatesForTable from './formatRatesForTable'
 import formatRatesForGraph from './formatRatesForGraph'
+import dummyRequest from './dummyRequest'
 
-export { checkIfInDateLimits, dummyRequest, mapRates, formatRatesForGraph }
+export { checkIfInDateLimits, formatRatesForTable, formatRatesForGraph, dummyRequest }

@@ -37,8 +37,17 @@
     <div class="feedback">
       <SpinnerComponent message="Fetching Symbols" v-if="isFetchingSymbols" />
       <SpinnerComponent message="Fetching Conversion" v-if="isFetchingTimeseries" />
-      <TimeseriesGraph :rates="rates" />
-      <TimeseriesTable :rates="rates" :base="base" />
+      <TimeseriesGraph
+        :chartData="{
+          labels: Object.keys(rates),
+          datasets: formatRatesForGraph(rates)
+        }"
+        :chartOptions="{ responsive: true }"
+      />
+      <TimeseriesTable
+        v-if="Object.keys(rates).length"
+        :tableData="mapRates(rates, { from: base })"
+      />
       <FeedbackComponent :shouldShow="isFetchingSymbolsFailed" message="Fetching Symbols Failed" />
       <FeedbackComponent
         :shouldShow="isFetchingTimeseriesFailed"
@@ -58,7 +67,7 @@ import {
   TimeseriesTable,
   SpinnerComponent
 } from '../components'
-import { checkIfInDateLimits } from '../functions'
+import { checkIfInDateLimits, formatRatesForGraph, mapRates } from '../functions'
 
 const timeSeriesStore = useExchangeApiTimeSeriesStore()
 

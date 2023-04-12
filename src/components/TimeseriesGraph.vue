@@ -1,6 +1,6 @@
 <template>
   <div class="timeseries-graph">
-    <LineChart v-if="Object.keys(rates).length" :options="chartOptions" :data="chartData" />
+    <LineChart :options="chartOptions" :data="chartData" />
   </div>
 </template>
 
@@ -16,7 +16,6 @@ import {
   PointElement,
   CategoryScale
 } from 'chart.js'
-import { formatRatesForGraph } from '../functions'
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale)
 
@@ -24,16 +23,8 @@ export default {
   name: 'TimeseriesGraph',
   components: { LineChart },
   props: {
-    rates: Object
-  },
-  data() {
-    return {
-      chartData: {
-        labels: Object.keys(this.rates),
-        datasets: formatRatesForGraph(this.rates)
-      },
-      chartOptions: { responsive: true }
-    }
+    chartData: Object,
+    chartOptions: Object
   }
 }
 </script>

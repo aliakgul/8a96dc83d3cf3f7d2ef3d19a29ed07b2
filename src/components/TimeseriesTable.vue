@@ -1,6 +1,6 @@
 <template>
   <div class="timeseries-table">
-    <table class="table table-secondary table-sm caption-bottom" v-if="Object.keys(rates).length">
+    <table class="table table-secondary table-sm caption-bottom">
       <caption>
         Timeseries Table
       </caption>
@@ -13,11 +13,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="rate in mappedRates" :key="rate.date">
-          <td>{{ rate.date }}</td>
-          <td>{{ rate.from }}</td>
-          <td>{{ rate.to }}</td>
-          <td>{{ rate.rate }}</td>
+        <tr v-for="data in tableData" :key="data.date">
+          <td>{{ data.date }}</td>
+          <td>{{ data.from }}</td>
+          <td>{{ data.to }}</td>
+          <td>{{ data.rate }}</td>
         </tr>
       </tbody>
     </table>
@@ -25,18 +25,10 @@
 </template>
 
 <script>
-import { mapRates } from '../functions'
-
 export default {
   name: 'TimeseriesTable',
   props: {
-    rates: Object,
-    base: String
-  },
-  computed: {
-    mappedRates() {
-      return mapRates(this.rates, { from: this.base })
-    }
+    tableData: Array
   }
 }
 </script>

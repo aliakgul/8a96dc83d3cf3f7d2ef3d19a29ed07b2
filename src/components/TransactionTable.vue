@@ -8,7 +8,7 @@
       </caption>
       <thead>
         <tr>
-          <th scope="col"></th>
+          <th scope="col">#</th>
           <th scope="col">Timestamp</th>
           <th scope="col">Date</th>
           <th scope="col">From</th>
@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr v-for="(transaction, index) in state.reversedTransactions" :key="index">
-          <th scope="col">{{ index + 1 }}</th>
+          <th scope="row">{{ index + 1 }}</th>
           <td>{{ transaction.timestamp }}</td>
           <td>{{ transaction.date }}</td>
           <td>{{ transaction.from }}</td>

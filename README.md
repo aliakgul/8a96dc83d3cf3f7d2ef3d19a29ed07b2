@@ -2,13 +2,6 @@
 
 Designed and implemented three web pages by using [Currency Rates API](https://apilayer.com/marketplace/exchangerates_data-api).
 
-### Screenshots
-
-![conversion page 1](screenshots/ss5.png)
-![conversion page 2](screenshots/ss6.png)
-![timeseries page 1](screenshots/ss7.png)
-![history page 1](screenshots/ss8.png)
-
 ### Tech Stack
 
 - Vue3
@@ -49,3 +42,13 @@ npm i vue-chartjs chart.js # https://github.com/apertureless/vue-chartjs
 npm i bootstrap bootstrap-icons # https://getbootstrap.com
 npm i -D sass # https://vitejs.dev/guide/features.html#css-pre-processors
 ```
+
+### Screenshots
+
+![screenshots 11](screenshots/ss11.png)
+![screenshots 12](screenshots/ss12.png)
+![screenshots 13](screenshots/ss13.png)
+![screenshots 14](screenshots/ss14.png)
+![screenshots 15](screenshots/ss15.png)
+![screenshots 16](screenshots/ss16.png)
+![screenshots 17](screenshots/ss17.png)

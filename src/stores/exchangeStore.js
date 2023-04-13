@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { dummyRequest, formatRatesForGraph, formatRatesForTable } from '../functions'
+import { formatRatesForGraph, formatRatesForTable } from '../functions'
 
 const endpoint = 'https://api.apilayer.com/exchangerates_data'
 const requestHeader = new Headers()

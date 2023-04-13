@@ -2,7 +2,7 @@
   <div class="toast-container position-absolute bottom-0 start-50 translate-middle-x">
     <div
       ref="toastElement"
-      class="toast align-items-center border-0"
+      class="toast align-items-center border-0 text-bg-danger"
       role="alert"
       aria-live="assertive"
       aria-atomic="true"

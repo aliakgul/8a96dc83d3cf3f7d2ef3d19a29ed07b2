@@ -47,7 +47,7 @@
         </option>
       </select>
     </div>
-    <div class="input-group">
+    <div class="input-group justify-content-md-end">
       <button class="btn btn-success" @click="checkFormAndSubmit">List</button>
     </div>
   </fieldset>

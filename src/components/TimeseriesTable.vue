@@ -1,6 +1,6 @@
 <template>
   <div class="table-responsive-sm">
-    <table class="table  caption-bottom">
+    <table class="table align-middle caption-bottom">
       <caption>
         Timeseries Table
       </caption>

@@ -1,7 +1,5 @@
 <template>
-  <div class="history-view">
-    <TransactionTable :transactions="transactionStoreState.transactions" />
-  </div>
+  <TransactionTable :transactions="transactionStoreState.transactions" />
 </template>
 
 <script>

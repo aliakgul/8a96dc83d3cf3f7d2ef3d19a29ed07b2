@@ -1,7 +1,5 @@
 <template>
-  <div class="timeseries-graph">
-    <LineChart :options="chartOptions" :data="chartData" />
-  </div>
+  <LineChart :options="chartOptions" :data="chartData" />
 </template>
 
 <script>

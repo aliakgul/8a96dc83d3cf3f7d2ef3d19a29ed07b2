@@ -1,6 +1,6 @@
 <template>
-  <div class="timeseries-table">
-    <table class="table table-secondary table-sm caption-bottom">
+  <div class="table-responsive-sm">
+    <table class="table  caption-bottom">
       <caption>
         Timeseries Table
       </caption>

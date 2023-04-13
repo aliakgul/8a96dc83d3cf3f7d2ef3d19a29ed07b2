@@ -1,6 +1,6 @@
 <template>
-  <div class="transaction-table">
-    <table class="table table-secondary table-hover caption-bottom">
+  <div class="table-responsive-sm">
+    <table class="table align-middle caption-bottom">
       <caption>
         {{
           transactions.length ? 'Transaction History' : 'No Transactions Yet.'
@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr v-for="(transaction, index) in state.reversedTransactions" :key="index">
-          <th scope="col">{{ index }}</th>
+          <th scope="col">{{ index + 1 }}</th>
           <td>{{ transaction.timestamp }}</td>
           <td>{{ transaction.date }}</td>
           <td>{{ transaction.from }}</td>

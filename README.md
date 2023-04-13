@@ -11,9 +11,8 @@ Designed and implemented three web pages by using [Currency Rates API](https://a
 
 ### Tech Stack
 
-- HTML5
-- CSS
 - Vue3
+- SCSS
 - Pinia
 - Bootstrap5
 
@@ -48,4 +47,5 @@ npm i lodash.debounce # https://lodash.com
 npm i pinia-plugin-persistedstate # https://github.com/prazdevs/pinia-plugin-persistedstate
 npm i vue-chartjs chart.js # https://github.com/apertureless/vue-chartjs
 npm i bootstrap bootstrap-icons # https://getbootstrap.com
+npm i -D sass # https://vitejs.dev/guide/features.html#css-pre-processors
 ```

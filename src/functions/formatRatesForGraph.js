@@ -14,8 +14,9 @@ function formatRatesForGraph(rates) {
         label: rate.label,
         data: rate.data,
         fill: false,
-        tension: 0.1,
-        borderColor: '#555'
+        tension: 0.1
+        /* borderColor: '#555',
+        pointBorderColor: '#555' */
       }
     })
 }
